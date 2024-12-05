@@ -1,13 +1,14 @@
 export const COLORS = {
     primary: {
-        20: "#ffffff",
-        30: "#f1d7d7",
-        40: "#e7bdbd",
+        20: "#CBF8D8",
+        30: "#A1F0B8",
+        40: "#8CD7A2",
     },
     secondary: {
-        100: "#000000",
+        70: "#7E8997",
+        100: "#3A414B",
     },
     opacity: {
-        10: "rgba(0, 0, 0, 0.2)",
+        10: "#66707EB3",
     }
 }

@@ -1,7 +1,7 @@
 import React, {Dispatch, FC, SetStateAction} from "react"
 import {ColorValue, StyleSheet, Text, TouchableOpacity} from "react-native"
 import {customStyles} from "../helpers/styleHelper";
-import {COLORS} from "../colors";
+import {useConfiguration} from "../hooks/useConfiguration";
 
 type Day = {
     year: number
@@ -42,13 +42,15 @@ const Key: FC<KeyProps> = ({
     const currentYear = todayDate.getFullYear()
     const currentMonth = todayDate.getMonth()
     const currentDate = todayDate.getDate()
+    const {customDateConfig} = useConfiguration()
 
     const {
         dateTextColor,
         backgroundColor,
         selectedDateTextColor,
         selectedDateBackgroundColor,
-    } = colorOptions
+        currentDayColor
+    } = customDateConfig.colorConfigs
     const singleMode = mode === "single"
     const rangeMode = mode === "range"
 
@@ -136,7 +138,7 @@ const Key: FC<KeyProps> = ({
                         ...customStyles.border(
                             1,
                             "solid",
-                            COLORS.primary[30],
+                            currentDayColor,
                         ),
                     }
                     : {},

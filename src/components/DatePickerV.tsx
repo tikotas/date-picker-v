@@ -20,6 +20,7 @@ import {customStyles} from "../helpers/styleHelper";
 import {ChevronLeftSvg, ChevronRightSvg} from "../svg";
 import {COLORS} from "../colors";
 import {LanguageConverterType} from "../helpers/languageConverter";
+import {useConfiguration} from "../hooks/useConfiguration";
 
 I18nManager.allowRTL(false)
 const winY = Dimensions.get("screen").height
@@ -116,7 +117,7 @@ const DatePickerV = ({
     const [showChangeYearModal, setShowChangeYearModal] = useState(
         chooseYearFirst ?? false,
     )
-
+    const {customDateConfig} = useConfiguration()
     const [displayTime, setDisplayTime] = useState(initialDate ?? new Date())
     const year = displayTime.getFullYear()
     const month = displayTime.getMonth() // 0-base
@@ -242,7 +243,8 @@ const DatePickerV = ({
         selectedDateBackgroundColor,
         confirmButtonColor,
         cancelButtonColor,
-    } = {...defaultColorOptions, ...colorOptions}
+        headerBorderColor,
+    } = {...customDateConfig.colorConfigs}
 
     useEffect(() => {
         setOutput(
@@ -270,7 +272,8 @@ const DatePickerV = ({
             deviceHeight={winY}
         >
             <View style={[styles.container, {backgroundColor}]}>
-                <View style={[styles.header, {backgroundColor: headerColor}]}>
+                <View
+                    style={[styles.header, {backgroundColor: headerColor, ...customStyles.borderBottom(0.4, "solid", headerBorderColor),}]}>
                     <TouchableOpacity
                         style={styles.changeMonthTO}
                         onPress={onPrev}
@@ -409,18 +412,19 @@ DatePickerV.defaultProps = {
 export default DatePickerV
 
 // Notice: only six-digit HEX values are allowed.
-const defaultColorOptions = {
-    backgroundColor: "#ffffff",
-    headerColor: "#4682E9",
-    headerTextColor: "#ffffff",
-    changeYearModalColor: "#4682E9",
-    weekDaysColor: "#4682E9",
-    dateTextColor: "#000000",
-    selectedDateTextColor: "#ffffff",
-    selectedDateBackgroundColor: "#4682E9",
-    confirmButtonColor: "#4682E9",
-    cancelButtonColor: "#ffffff",
-}
+// const defaultColorOptions = {
+//     backgroundColor: "#ffffff",
+//     headerColor: "#4682E9",
+//     headerTextColor: "#ffffff",
+//     headerBorderColor: "#7E8997",
+//     changeYearModalColor: "#4682E9",
+//     weekDaysColor: "#4682E9",
+//     dateTextColor: "#000000",
+//     selectedDateTextColor: "#ffffff",
+//     selectedDateBackgroundColor: "#4682E9",
+//     confirmButtonColor: "#4682E9",
+//     cancelButtonColor: "#ffffff",
+// }
 
 const styles = StyleSheet.create({
     modal: {
@@ -445,7 +449,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         marginBottom: 8,
-        ...customStyles.borderBottom(0.4, "solid", COLORS.secondary[70]),
+        // ...customStyles.borderBottom(0.4, "solid", COLORS.secondary[70]),
     },
     header__title: {
         fontSize: 24,
