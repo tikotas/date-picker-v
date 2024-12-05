@@ -1,6 +1,6 @@
 {
   "name": "date-picker-v",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "main": "./dist/index.js",
   "description": "react native date picker with ts support",
   "module": "./dist/index.mjs",

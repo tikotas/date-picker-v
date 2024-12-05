@@ -3,6 +3,7 @@ import {ColorValue, PanResponder, StyleSheet, Text, View} from "react-native"
 import Modal, {ModalProps} from "react-native-modal"
 import {ChevronDownSvg, ChevronUpSvg} from "../svg"
 import {CustomButton} from "./CustomButton";
+import {useConfiguration} from "../hooks/useConfiguration";
 
 export type ChangeYearModalProps = {
     colorOptions: {
@@ -31,6 +32,7 @@ const ChangeYearModal: FC<ChangeYearModalProps> = ({
                                                        selectButtonTitle
                                                    }) => {
     const {primary, backgroundColor} = colorOptions
+    const {customDateConfig} = useConfiguration()
     const [year, setYear] = useState(displayTime.getFullYear())
     const onDismiss = () => {
         dismiss()
@@ -94,12 +96,13 @@ const ChangeYearModal: FC<ChangeYearModalProps> = ({
             style={styles.modal}
             {...changeYearModalProps}
         >
-            <View style={[styles.container, {backgroundColor}]}>
+            <View style={[styles.container, {backgroundColor: customDateConfig.colorConfigs.backgroundColor}]}>
                 <View {...panResponder.panHandlers} style={{width: "100%"}}>
                     <View style={styles.centerText}>
                         <ChevronUpSvg height="28" width="28"/>
                         {!!minDatePreviousYear && (
-                            <Text style={styles.prevYearText}>
+                            <Text
+                                style={[styles.prevYearText, {color: customDateConfig.colorConfigs.prevNextTextColor}]}>
                                 {minDatePreviousYear}
                             </Text>
                         )}
@@ -109,7 +112,8 @@ const ChangeYearModal: FC<ChangeYearModalProps> = ({
                     </Text>
                     <View style={styles.centerText}>
                         {!!maxDateNextYear && (
-                            <Text style={styles.nextYearText}>
+                            <Text
+                                style={[styles.nextYearText, {color: customDateConfig.colorConfigs.prevNextTextColor}]}>
                                 {maxDateNextYear}
                             </Text>
                         )}
@@ -117,6 +121,7 @@ const ChangeYearModal: FC<ChangeYearModalProps> = ({
                     </View>
                 </View>
                 <CustomButton
+
                     title={selectButtonTitle}
                     style={{marginTop: 30, width: "100%"}}
                     onPress={onDismiss}
@@ -138,7 +143,6 @@ const styles = StyleSheet.create({
         width: 250,
         borderRadius: 12,
         padding: 16,
-        backgroundColor: "#fff",
         justifyContent: "center",
         alignItems: "center",
     },
@@ -151,7 +155,6 @@ const styles = StyleSheet.create({
 
     prevYearText: {
         fontSize: 16,
-        color: "#7A7A7A",
         textAlign: "center",
         marginTop: 8,
         marginBottom: 4,
@@ -159,7 +162,6 @@ const styles = StyleSheet.create({
 
     nextYearText: {
         fontSize: 16,
-        color: "#7A7A7A",
         textAlign: "center",
         marginTop: 4,
         marginBottom: 8,
