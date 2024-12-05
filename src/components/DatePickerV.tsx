@@ -1,4 +1,3 @@
-import {useTranslation} from "react-i18next"
 import Modal from "react-native-modal"
 
 import React, {Fragment, useEffect, useMemo, useState} from "react"
@@ -15,12 +14,12 @@ import {
     View,
     ViewStyle,
 } from "react-native"
-import {LanguageConverterType} from "~utils/languageConfigs"
-import {COLORS} from "~constants/colors"
 import {DaysArray, useDaysOfMonth} from "../hooks/useDaysOfMonth";
 import Key, {Mode, Output} from "./Key";
 import {customStyles} from "../helpers/styleHelper";
 import {ChevronLeftSvg, ChevronRightSvg} from "../svg";
+import {COLORS} from "../colors";
+import {LanguageConverterType} from "../helpers/languageConverter";
 
 I18nManager.allowRTL(false)
 const winY = Dimensions.get("screen").height
@@ -83,8 +82,13 @@ export type DatePickerPropsType = {
     onBackdropPress?: () => void
     onCancel: () => void
     onConfirm: (arg: object) => void
+    cancelTitle?: string
+    confirmTitle?: string
+    selectButtonTitle?: string
     startDate?: Date
     chooseYearFirst?: boolean
+    months: { [key: string]: string }
+    weekDays: string[]
 }
 
 const DatePickerV = ({
@@ -103,8 +107,12 @@ const DatePickerV = ({
                          onConfirm,
                          startDate,
                          chooseYearFirst,
+                         confirmTitle = "Confirm",
+                         cancelTitle = "Cancel",
+                         selectButtonTitle = "Select",
+                         weekDays,
+                         months
                      }: DatePickerPropsType) => {
-    const {t} = useTranslation()
     const [showChangeYearModal, setShowChangeYearModal] = useState(
         chooseYearFirst ?? false,
     )
@@ -156,11 +164,6 @@ const DatePickerV = ({
                 : setDisplayTime(originalOutput.startDate as Date)
         }, 300)
     }
-
-    const months: { [key: string]: string } = t("datePicker.months", {
-        returnObjects: true,
-    })
-    const weekDays: string[] = t("datePicker.weekDays", {returnObjects: true})
 
     const autoCompleteEndDate = () => {
         output.endDate = output.startDate
@@ -278,7 +281,7 @@ const DatePickerV = ({
                             width="24"
                             color={
                                 disablePrevious
-                                    ? COLORS.modalOpacity.secondary
+                                    ? COLORS.opacity[10]
                                     : headerTextColor
                             }
                         />
@@ -309,7 +312,7 @@ const DatePickerV = ({
                             width="24"
                             color={
                                 disableNext
-                                    ? COLORS.modalOpacity.secondary
+                                    ? COLORS.opacity[10]
                                     : headerTextColor
                             }
                         />
@@ -360,7 +363,7 @@ const DatePickerV = ({
                                     {color: cancelButtonColor},
                                 ]}
                             >
-                                {t("datePicker.cancel")}
+                                {cancelTitle}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -373,7 +376,7 @@ const DatePickerV = ({
                                     {color: confirmButtonColor},
                                 ]}
                             >
-                                {t("datePicker.accept")}
+                                {confirmTitle}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -391,6 +394,7 @@ const DatePickerV = ({
                     }}
                     minDate={minDate?.getFullYear() as number}
                     maxDate={maxDate?.getFullYear() as number}
+                    selectButtonTitle={selectButtonTitle}
                 />
             </View>
         </Modal>

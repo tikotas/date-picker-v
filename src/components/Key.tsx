@@ -1,7 +1,7 @@
 import React, {Dispatch, FC, SetStateAction} from "react"
 import {ColorValue, StyleSheet, Text, TouchableOpacity} from "react-native"
-import {COLORS} from "~constants/colors"
 import {customStyles} from "../helpers/styleHelper";
+import {COLORS} from "../colors";
 
 type Day = {
     year: number
