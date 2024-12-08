@@ -2,19 +2,19 @@ import {useState} from "react";
 
 
 const defaultColorOptions = {
-    backgroundColor: "#3A414B",
-    headerColor: "#3A414B",
+    backgroundColor: "#ffffff",
+    headerColor: "#4682E9",
     headerTextColor: "#ffffff",
     headerBorderColor: "#7E8997",
-    changeYearModalColor: "#F3F8FF",
-    weekDaysColor: "#F3F8FF",
-    dateTextColor: "#F3F8FF",
-    selectedDateTextColor: "#3A414B",
-    selectedDateBackgroundColor: "#A1F0B8",
-    confirmButtonColor: "#A1F0B8",
-    cancelButtonColor: "#A1F0B8",
+    changeYearModalColor: "#4682E9",
+    weekDaysColor: "#4682E9",
+    dateTextColor: "#000000",
+    selectedDateTextColor: "#ffffff",
+    selectedDateBackgroundColor: "#4682E9",
+    confirmButtonColor: "#4682E9",
+    cancelButtonColor: "#ffffff",
     prevNextTextColor: "#7A7A7A",
-    currentDayColor: "#A1F0B8"
+    currentDayColor: "#000000",
 }
 
 const initialConfigs = {

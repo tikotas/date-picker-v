@@ -1,119 +1,43 @@
 import Modal from "react-native-modal"
 
-import React, {Fragment, useEffect, useMemo, useState} from "react"
+import React, {FC, Fragment, useEffect, useMemo, useState} from "react"
 import format from "../helpers/dateformat"
 import ChangeYearModal from "./ChangeYearModal"
-import {
-    ColorValue,
-    Dimensions,
-    I18nManager,
-    Platform,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-    ViewStyle,
-} from "react-native"
+import {Dimensions, I18nManager, Platform, StyleSheet, Text, TouchableOpacity, View,} from "react-native"
 import {DaysArray, useDaysOfMonth} from "../hooks/useDaysOfMonth";
-import Key, {Mode, Output} from "./Key";
+import Key, {Output} from "./Key";
 import {customStyles} from "../helpers/styleHelper";
 import {ChevronLeftSvg, ChevronRightSvg} from "../svg";
 import {COLORS} from "../colors";
-import {LanguageConverterType} from "../helpers/languageConverter";
 import {useConfiguration} from "../hooks/useConfiguration";
+import {DatePickerPropsType} from "../types";
 
 I18nManager.allowRTL(false)
 const winY = Dimensions.get("screen").height
 
-export type ColorOptions = {
-    backgroundColor?: ColorValue
-    headerColor?: ColorValue
-    headerTextColor?: ColorValue
-    changeYearModalColor?: ColorValue
-    weekDaysColor?: ColorValue
-    dateTextColor?: ColorValue
-    selectedDateTextColor?: ColorValue
-    selectedDateBackgroundColor?: ColorValue
-    confirmButtonColor?: ColorValue
-    cancelButtonColor?: ColorValue
-}
 
-type DateStringOptions =
-    | "ddd mmm dd yyyy HH:MM:ss"
-    | "default"
-    | "m/d/yy"
-    | "shortDate"
-    | "mm/dd/yyyy"
-    | "paddedShortDate"
-    | "mmm d, yyyy"
-    | "mediumDate"
-    | "mmmm d, yyyy"
-    | "longDate"
-    | "dddd, mmmm d, yyyy"
-    | "fullDate"
-    | "h:MM TT"
-    | "shortTime"
-    | "h:MM:ss TT"
-    | "mediumTime"
-    | "h:MM:ss TT Z"
-    | "longTime"
-    | "yyyy-mm-dd"
-    | "isoDate"
-    | "HH:MM:ss"
-    | "isoTime"
-    | "yyyy-mm-dd'T'HH:MM:sso"
-    | "isoDateTime"
-    | "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-    | "isoUtcDateTime"
-    | "ddd, dd mmm yyyy HH:MM:ss Z"
-    | "expiresHeaderFormat"
-
-export type DatePickerPropsType = {
-    colorOptions?: ColorOptions
-    dateStringFormat?: DateStringOptions
-    endDate?: Date
-    initialDate?: Date
-    isVisible: boolean
-    language?: LanguageConverterType
-    maxDate: Date
-    minDate: Date
-    modalStyles?: ViewStyle
-    mode: Mode
-    onBackButtonPress?: () => void
-    onBackdropPress?: () => void
-    onCancel: () => void
-    onConfirm: (arg: object) => void
-    cancelTitle?: string
-    confirmTitle?: string
-    selectButtonTitle?: string
-    startDate?: Date
-    chooseYearFirst?: boolean
-    months: { [key: string]: string }
-    weekDays: string[]
-}
-
-const DatePickerV = ({
-                         colorOptions,
-                         dateStringFormat,
-                         endDate,
-                         initialDate,
-                         isVisible,
-                         maxDate,
-                         minDate,
-                         modalStyles,
-                         mode,
-                         onBackButtonPress,
-                         onBackdropPress,
-                         onCancel,
-                         onConfirm,
-                         startDate,
-                         chooseYearFirst,
-                         confirmTitle = "Confirm",
-                         cancelTitle = "Cancel",
-                         selectButtonTitle = "Select",
-                         weekDays,
-                         months
-                     }: DatePickerPropsType) => {
+const DatePickerV: FC<DatePickerPropsType> = ({
+                                                  colorOptions,
+                                                  dateStringFormat,
+                                                  endDate,
+                                                  initialDate,
+                                                  isVisible,
+                                                  maxDate,
+                                                  minDate,
+                                                  modalStyles,
+                                                  mode,
+                                                  onBackButtonPress,
+                                                  onBackdropPress,
+                                                  onCancel,
+                                                  onConfirm,
+                                                  startDate,
+                                                  chooseYearFirst,
+                                                  confirmTitle = "Confirm",
+                                                  cancelTitle = "Cancel",
+                                                  selectButtonTitle = "Select",
+                                                  weekDays,
+                                                  months
+                                              }) => {
     const [showChangeYearModal, setShowChangeYearModal] = useState(
         chooseYearFirst ?? false,
     )
@@ -402,11 +326,6 @@ const DatePickerV = ({
             </View>
         </Modal>
     )
-}
-
-DatePickerV.defaultProps = {
-    dateStringFormat: "yyyy-mm-dd",
-    modalStyles: {justifyContent: "center"},
 }
 
 export default DatePickerV
