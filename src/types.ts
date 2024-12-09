@@ -53,6 +53,15 @@ type DateStringOptions =
     | "ddd, dd mmm yyyy HH:MM:ss Z"
     | "expiresHeaderFormat"
 
+export type DateType = {
+    date: Date | null
+    dateString: string | null
+    startDate: Date | null
+    startDateString: string | null
+    endDate: Date | null
+    endDateString: string | null
+}
+
 export type DatePickerPropsType = {
     colorOptions?: ColorOptions
     dateStringFormat?: DateStringOptions
@@ -67,7 +76,7 @@ export type DatePickerPropsType = {
     onBackButtonPress?: () => void
     onBackdropPress?: () => void
     onCancel: () => void
-    onConfirm: (arg: object) => void
+    onConfirm: (arg: DateType) => void
     cancelTitle?: string
     confirmTitle?: string
     selectButtonTitle?: string

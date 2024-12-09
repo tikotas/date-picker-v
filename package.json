@@ -1,6 +1,6 @@
 {
   "name": "date-picker-v",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "main": "./dist/index.js",
   "description": "react native date picker with ts support",
   "module": "./dist/index.mjs",
@@ -24,8 +24,8 @@
     "build": "rm -rf dist && tsup"
   },
   "dependencies": {
-    "react": "18.2.0",
-    "react-native": "0.74.3",
+    "react": "^18.3.1",
+    "react-native": "^0.76.3",
     "react-native-modal": "^13.0.1",
     "react-native-svg": "^15.6.0"
   },

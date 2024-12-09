@@ -12,9 +12,10 @@ const defaultColorOptions = {
     selectedDateTextColor: "#ffffff",
     selectedDateBackgroundColor: "#4682E9",
     confirmButtonColor: "#4682E9",
-    cancelButtonColor: "#ffffff",
+    cancelButtonColor: "#4682E9",
     prevNextTextColor: "#7A7A7A",
-    currentDayColor: "#000000",
+    currentDayColor: "#4682E9",
+    selectYearColor: "#4682E9"
 }
 
 const initialConfigs = {

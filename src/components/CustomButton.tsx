@@ -4,6 +4,7 @@ import {ActivityIndicator, StyleProp, StyleSheet, Text, TouchableOpacity,} from 
 import {customStyles} from "../helpers/styleHelper";
 import {ChildrenType} from "../types";
 import {COLORS} from "../colors";
+import {useConfiguration} from "../hooks/useConfiguration";
 
 export const CustomButton: FC<ChildrenType> = ({
                                                    title,
@@ -22,8 +23,9 @@ export const CustomButton: FC<ChildrenType> = ({
         justifyContent: justify,
         flexDirection: icon ? "row" : "column",
     }
+    const {customDateConfig} = useConfiguration()
 
-    const disabledStyle = isLoading ? {backgroundColor: COLORS.primary[20]} : {}
+    const disabledStyle = isLoading ? {backgroundColor: customDateConfig.colorConfigs.selectYearColor} : {}
     const disabledOpacity = disable ? {opacity: 0.5} : {}
 
     return (
